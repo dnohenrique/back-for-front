@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  api-cliente:
+    ports:
+      - "32607:80"
+      - "9229:9229"
+    environment:
+      - "NODE_ENV=development"
+    command: "npm run start-dev" 
+    volumes:
+      - "./src:/usr/src/api-cliente/src"
+      
+  microservice-empresas:
+    ports:
+      - "32304:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+  
+  mongo:
+    ports:
+      - "27018:27017"
+  
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081"

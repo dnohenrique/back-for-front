@@ -1,0 +1,136 @@
+// CONSULTA TODAS NOTAS DE DÉBITO POR FILTROS 
+{
+	getNotaDebito(numero: "", nome: "", cnpj: "", limit: 10, offset:0) {
+		total
+		notasDebito {
+		  id
+		  numero
+		  titular
+		  documento
+		  valorNominal
+		  situacao
+      valorFaturas
+      diverge
+      dadosReferencia {
+        endereco
+        cep
+        email
+        referencia
+      }
+		}
+	}
+}
+
+// CONSULTA NOTA DÉBITO POR ID 
+{
+	getNotaDebitoById(id: "07c50f19-2307-44db-9d9e-b35977a08927", titular: "", documentoAssinante: "", limit: 0, offset: 0) {
+		total
+    planosVinculados {
+      id
+      nomeAssinante:titular
+      cpf: documentoAssinante
+      plano:tituloPlano
+      valor:valorRealMensal
+      parcela
+    }
+    faturas {
+      parcela
+      recebimentoId
+      billId
+      valorNominal
+      valorRecebido
+      dataVencimento
+      dataRecebimento
+      situacaoRecebimento
+    }
+		notaDebito {
+		  id
+		  numero
+		  titular
+		  documento
+		  valorNominal
+		  situacao
+      periodoDe
+      periodoAte
+      descricao
+      observacoes
+      cliente
+      dataCancelamento
+      valorDesconto
+      condicoesPagamento {
+        diasVencimento
+      }
+      dadosReferencia {
+        endereco
+        cep
+        email
+        referencia
+      }
+		}
+	}
+}
+
+//ATUALIZA NOTA DEBITO
+mutation {
+  updateNotaDebito(input:{
+    id: "b01da5c1-444e-418e-a6b3-81f13e6726c9",
+    descricao: "1",
+    observacoes: "1",
+    condicoesPagamento:{
+      diasVencimento:10
+    }
+  }) {
+    success
+  }
+}
+
+// CONSULTA SE ULTIMA NOTA DE DEBITO
+{
+  verifyUltimaNotaDebitoType(id:""){
+    isUltimaNotaDebito
+  }
+}
+
+// CANCELAR NOTA DEBITO
+mutation {
+  cancelNotaDebito(input:{
+    id:""
+  }) {
+    success
+  }
+}
+
+// CONSULTA CLIENTES PARA VINCULAR A NOTA DE DEBITO
+{
+  getClientes {
+    total
+    clientes {
+      id
+      razaoSocial
+      responsavel {
+        email
+      },
+	    endereco {
+        logradouro
+        numero
+        complemento
+        bairro
+        cidade
+        estado
+        cep
+        pais
+	    }
+    }
+  }
+}
+
+// ATUALIZA NOTA DEBITO PARAMETROS 
+mutation {
+  updateNotaDebitoParametro (input: {
+		descricao:"teste novo",
+		id: "b13d6d9f-b23d-4138-9e65-a11156af6f5c"
+	})
+	{
+    	success
+	}
+}
